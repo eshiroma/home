@@ -1,0 +1,6 @@
+[user]
+	email = eshiroma@gmail.com
+	name = Erika Shiroma
+
+[alias]
+	log-graph = log --graph --oneline --decorate --all

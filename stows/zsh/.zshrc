@@ -5,7 +5,9 @@ autoload -U select-word-style
 select-word-style bash
 
 # Minimal color prompt.
-export FG_PROMPT_COLOR=green
+PROFILE_COLOR=green
+[ -f "${HOME}/.localrc" ] && source "${HOME}/.localrc"
+export FG_PROMPT_COLOR=$PROFILE_COLOR
 export BG_PROMPT_COLOR=black
 export PS1="%{$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%}$reset_color$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%m$reset_color:$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%~/$reset_color
 $ "

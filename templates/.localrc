@@ -1,0 +1,5 @@
+# Terminal color theme specific to this machine
+# Other basic colors are supported, e.g.
+# cyan, yellow, red, magenta
+export PROFILE_COLOR='green'
+

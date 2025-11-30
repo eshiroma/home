@@ -1,4 +1,4 @@
-all: init stow
+all: init stow default-shell init-local
 
 init:
 	sudo apt update \
@@ -17,6 +17,9 @@ init:
 
 stow:
 	cd stows/ && stow --target "${HOME}" *
+
+init-local:
+	[ ! -f "${HOME}/.localrc" ] && cp templates/.localrc "${HOME}/.localrc"
 
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}"

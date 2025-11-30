@@ -1,12 +1,12 @@
 # Quick Setup
 
 ``` 
-install_location="$HOME/local/github.com/trironkk/home" \
+install_location="$HOME/local/github.com/eshiroma/home" \
 && sudo apt install -y git make \
 && git clone \
       --depth=1 \
       --recursive \
-      "https://github.com/trironkk/home" "$install_location" \
+      "https://github.com/eshiroma/home" "$install_location" \
 && make -C "$install_location"
 ```
 
@@ -22,5 +22,5 @@ git remote set-url origin git@github.com:eshiroma/home.git
 Create a new key and upload the `.pub` file at Settings > SSH and GPG keys:
 
 ```
-ssh-keygen -t ed25519 --comment "<key_description>"
+ssh-keygen -t ed25519 -C "<key_description>"
 ```

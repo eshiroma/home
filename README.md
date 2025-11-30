@@ -10,6 +10,11 @@ install_location="$HOME/local/github.com/eshiroma/home" \
 && make -C "$install_location"
 ```
 
+## `.localrc`
+
+Setup will create a `~/.localrc` file for machine-specific settings, e.g.
+terminal prompt and tmux pane colors. 
+
 # SSH
 
 Quick setup clones with https for simplicity since the repo is public. In order
@@ -24,3 +29,4 @@ Create a new key and upload the `.pub` file at Settings > SSH and GPG keys:
 ```
 ssh-keygen -t ed25519 -C "<key_description>"
 ```
+

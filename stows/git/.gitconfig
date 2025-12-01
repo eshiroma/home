@@ -2,5 +2,8 @@
 	email = eshiroma@gmail.com
 	name = Erika Shiroma
 
+[core]
+	editor = vim
+
 [alias]
 	log-graph = log --graph --oneline --decorate --all

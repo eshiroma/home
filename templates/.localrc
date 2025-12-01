@@ -1,5 +1,8 @@
 # Terminal color theme specific to this machine
-# Other basic colors are supported, e.g.
-# cyan, yellow, red, magenta
+# Basic colors are supported, e.g.
+# green, cyan, yellow, red, magenta
+#
+# Note that tmux must be launched from a zsh with the new desired color
+# (can't just re-source within existing session)
 export PROFILE_COLOR='green'
 

@@ -1,4 +1,4 @@
-all: init stow default-shell init-local
+all: init stow init-local default-shell
 
 init:
 	sudo apt update \
@@ -13,6 +13,7 @@ init:
 		stow \
 		tar \
 		tmux \
+		vim \
 		zsh
 
 stow:
@@ -22,7 +23,7 @@ init-local:
 	[ ! -f "${HOME}/.localrc" ] && cp templates/.localrc "${HOME}/.localrc"
 
 default-shell:
-	sudo chsh -s "$(shell which zsh)" "${USER}"
+	sudo chsh -s "$(shell which zsh)" "${USER}" && zsh
 
 unstow:
 	cd stows/ && stow --delete --target "${HOME}" *

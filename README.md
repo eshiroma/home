@@ -2,6 +2,7 @@
 
 ``` 
 install_location="$HOME/local/github.com/eshiroma/home" \
+&& sudo apt update \
 && sudo apt install -y git make \
 && git clone \
       --depth=1 \

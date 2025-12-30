@@ -37,3 +37,5 @@ export TERM=xterm-256color
 export FZF_TMUX=1
 export FZF_CTRL_T_COMMAND="command ag '' -l"
 
+# Corp-only setup
+[ -f "${HOME}/.zshrc_corp" ] && source "${HOME}/.zshrc_corp"

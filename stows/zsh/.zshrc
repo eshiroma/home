@@ -9,7 +9,8 @@ PROFILE_COLOR=green
 [ -f "${HOME}/.localrc" ] && source "${HOME}/.localrc"
 export FG_PROMPT_COLOR=$PROFILE_COLOR
 export BG_PROMPT_COLOR=black
-export PS1="%{$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%}$reset_color$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%m$reset_color:$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%~/$reset_color
+# yyyy-mm-dd hh:mm:ss hostname:localdir
+export PS1="%{$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]20%D %* %}$reset_color$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%m$reset_color:$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%~/$reset_color
 $ "
 
 eval $(dircolors -b)

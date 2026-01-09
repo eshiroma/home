@@ -7,3 +7,4 @@
 
 [alias]
 	log-graph = log --graph --oneline --decorate --all
+	ld = log --pretty=format:'%C(yellow)%h%Creset %C(green)%cs%Creset %s%C(auto)%d'

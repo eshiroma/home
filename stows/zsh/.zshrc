@@ -26,7 +26,7 @@ setopt hist_find_no_dups
 
 setopt INTERACTIVECOMMENTS
 
-export PATH=$PATH:~/scripts
+export PATH=$PATH:~/.scripts
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/go/bin
 

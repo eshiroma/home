@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Intended for use after cloning a repo at limited depth.
+
+# Strict Mode: Exit on error, undefined vars, and pipe failures
+set -euo pipefail
+
+# Help/Usage function
+usage() {
+    echo "Usage: $(basename "$0") <branch_name> [depth]"
+    echo "Example: $(basename "$0") feature-branch 10"
+    exit 1
+}
+
+# 1. Check for required branch argument
+if [[ -z "${1:-}" ]]; then
+    usage
+fi
+
+branch="$1"
+depth="${2:-}" # Default to empty if not provided
+
+echo "--> Tracking and adding branch: $branch"
+
+# 2. Add branch to the remote list
+# This ensures future 'git fetch' calls see this branch
+git remote set-branches --add origin "$branch"
+
+# 3. Perform the fetch
+if [[ -n "$depth" ]]; then
+    echo "--> Fetching with depth: $depth"
+    git fetch --depth="$depth" origin "$branch"
+else
+    echo "--> Fetching full depth..."
+    git fetch origin "$branch"
+fi
+
+# 4. Checkout the branch
+echo "--> Checking out $branch..."
+git checkout "$branch"
+

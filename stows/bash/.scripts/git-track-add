@@ -39,3 +39,6 @@ fi
 echo "--> Checking out $branch..."
 git checkout "$branch"
 
+# Note: to fetch the full depth later, use
+# git fetch --unshallow
+

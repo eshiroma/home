@@ -5,7 +5,6 @@ if filereadable(expand("~/.vimrc_corp"))
 "  source ~/.vimrc_corp
 endif
 
-set number
 colorscheme desert
 syntax on
 filetype plugin on

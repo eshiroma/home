@@ -44,5 +44,8 @@ export FZF_CTRL_T_COMMAND="command ag '' -l"
 # SSH session setup (phone-friendly aliases, etc.)
 [[ -n "$SSH_CONNECTION" ]] && [ -f "${HOME}/.zshrc_ssh" ] && source "${HOME}/.zshrc_ssh"
 
+# Aliases, since I have so few
+alias cdh='cd ~/local/github.com/eshiroma/home'
+
 # Corp-only setup
 [ -f "${HOME}/.zshrc_corp" ] && source "${HOME}/.zshrc_corp"

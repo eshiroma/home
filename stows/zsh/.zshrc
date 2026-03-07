@@ -29,7 +29,6 @@ setopt INTERACTIVECOMMENTS
 export PATH=$PATH:~/.scripts
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/go/bin
-
 # fzf
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
@@ -37,6 +36,10 @@ source /usr/share/doc/fzf/examples/completion.zsh
 export TERM=xterm-256color
 export FZF_TMUX=1
 export FZF_CTRL_T_COMMAND="command ag '' -l"
+
+# wsl-only setup
+[[ -n "$WSL_DISTRO_NAME" ]] && source "${HOME}/.zshrc_wsl"
+
 
 # Corp-only setup
 [ -f "${HOME}/.zshrc_corp" ] && source "${HOME}/.zshrc_corp"

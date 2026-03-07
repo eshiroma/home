@@ -1,0 +1,11 @@
+echo "wsl detected, applying wsl-specific settings"
+
+export PATH=$PATH:/mnt/c/Users/enshi/AppData/Local/Android/Sdk/platform-tools
+export PATH=$PATH:/mnt/c/Users/enshi/flutter/bin
+alias adb='adb.exe'
+
+export FZF_TMUX=0
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --no-mouse --bind ctrl-z:ignore'
+
+# Init SSH; hasn't been an issue on my other devices
+eval $(keychain --eval --quiet ~/.ssh/id_ed25519)

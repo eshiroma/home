@@ -1,4 +1,4 @@
-all: init stow init-local default-shell
+all: init stow init-local init-wsl-tools default-shell
 
 init:
 	sudo apt update \
@@ -7,6 +7,7 @@ init:
 		git \
 		fzf \
 		jq \
+		keychain \
 		make \
 		nodejs \
 		silversearcher-ag \
@@ -21,6 +22,9 @@ stow:
 
 init-local:
 	[ ! -f "${HOME}/.localrc" ] && cp templates/.localrc "${HOME}/.localrc"
+
+init-wsl-tools:
+	@ [ -n "$$WSL_DISTRO_NAME" ] && sudo apt-get update && sudo apt-get install -y wslu || echo "Skipping: Not a WSL environment."
 
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}" && zsh

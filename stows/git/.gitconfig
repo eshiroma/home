@@ -8,3 +8,4 @@
 [alias]
 	log-graph = log --graph --oneline --decorate --all
 	ld = log --pretty=format:'%C(yellow)%h%Creset %C(green)%cs%Creset %s%C(auto)%d'
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

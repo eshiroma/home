@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Run Android Gradle tasks from WSL using Windows-side SDK tools.
+#
+# Usage: android-gradle <task> [task...] [gradle-options]
+# Example: android-gradle assembleDebug
+# Example: android-gradle connectedAndroidTest
+#
+# Override defaults via env vars:
+#   ANDROID_JAVA_HOME  - path to JDK (Windows path)
+#   ANDROID_SDK_HOME   - path to Android SDK (Windows path)
+
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $(basename "$0") <task> [task...] [gradle-options]"
+    exit 1
+fi
+
+if [[ ! -f "./gradlew.bat" ]]; then
+    echo "error: gradlew.bat not found in current directory" >&2
+    exit 1
+fi
+
+JAVA_HOME_WIN="${ANDROID_JAVA_HOME:-C:\\Program Files\\Android\\Android Studio\\jbr}"
+ANDROID_HOME_WIN="${ANDROID_SDK_HOME:-C:\\Users\\enshi\\AppData\\Local\\Android\\Sdk}"
+WIN_DIR=$(wslpath -w "$(pwd)")
+ARGS="$*"
+
+BATCH_FILE=$(mktemp /tmp/android-gradle-XXXXXX.bat)
+trap 'rm -f "$BATCH_FILE"' EXIT
+
+cat > "$BATCH_FILE" << EOF
+@echo off
+set JAVA_HOME=$JAVA_HOME_WIN
+set ANDROID_HOME=$ANDROID_HOME_WIN
+cd /d $WIN_DIR
+gradlew.bat $ARGS --no-daemon
+EOF
+
+cmd.exe /c "$(wslpath -w "$BATCH_FILE")"

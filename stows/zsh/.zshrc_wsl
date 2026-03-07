@@ -1,8 +1,12 @@
 echo "wsl detected, applying wsl-specific settings"
 
 export PATH=$PATH:/mnt/c/Users/enshi/AppData/Local/Android/Sdk/platform-tools
-export PATH=$PATH:/mnt/c/Users/enshi/flutter/bin
-alias adb='adb.exe'
+
+export PATH="$PATH:$HOME/.maestro/bin"
+
+# Android devices
+export PIXEL_9_PRO="100.100.163.108:36977"
+alias adb-p='adb -s $PIXEL_9_PRO'
 
 export FZF_TMUX=0
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --no-mouse --bind ctrl-z:ignore'

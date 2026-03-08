@@ -38,11 +38,16 @@ export TERM=xterm-256color
 export FZF_TMUX=1
 export FZF_CTRL_T_COMMAND="command ag '' -l"
 
+[ -f "${HOME}/.bash_aliases" ] && source "${HOME}/.bash_aliases"
+
 # wsl-only setup
 [[ -n "$WSL_DISTRO_NAME" ]] && source "${HOME}/.zshrc_wsl"
 
 # SSH session setup (phone-friendly aliases, etc.)
 [[ -n "$SSH_CONNECTION" ]] && [ -f "${HOME}/.zshrc_ssh" ] && source "${HOME}/.zshrc_ssh"
 
+
 # Corp-only setup
 [ -f "${HOME}/.zshrc_corp" ] && source "${HOME}/.zshrc_corp"
+export PATH=$PATH:$HOME/.maestro/bin
+export PATH=$PATH:/snap/bin

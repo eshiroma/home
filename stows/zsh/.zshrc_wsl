@@ -5,6 +5,10 @@ export PATH=$PATH:"/mnt/c/Program Files/usbipd-win"
 
 export PATH="$PATH:$HOME/.maestro/bin"
 
+# Windows filesystem shortcuts
+alias cdwh='cd /mnt/c/Users/enshi'
+alias cdaa='cd /mnt/c/Users/enshi/local/github.com/trironkk/auto-anki'
+
 # Android devices
 # Pixel 9 Pro (wireless)
 export PIXEL_9_PRO="100.100.163.108:36977"

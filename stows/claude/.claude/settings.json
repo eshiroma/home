@@ -1,0 +1,16 @@
+{
+  "cleanupPeriodDays": 99999,
+  "model": "sonnet",
+  "hooks": {
+    "Stop": [
+      {"matcher": "", "hooks": [{"type": "command", "command": "bash /home/erika/.claude/hooks/stop.sh"}]}
+    ],
+    "UserPromptSubmit": [
+      {"matcher": "", "hooks": [{"type": "command", "command": "bash /home/erika/.claude/hooks/prompt.sh"}]}
+    ],
+    "Notification": [
+      {"matcher": "", "hooks": [{"type": "command", "command": "powershell.exe -c \"[console]::beep(659,150); [console]::beep(880,150); [console]::beep(1047,250)\""}]},
+      {"matcher": "", "hooks": [{"type": "command", "command": "bash /home/erika/.claude/hooks/blocked.sh"}]}
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Stop the auto-anki GCE VM
+
+INSTANCE=auto-anki-dev
+ZONE=us-central1-a
+PROJECT=firm-pentameter-309918
+
+gcloud compute instances stop "$INSTANCE" --zone="$ZONE" --project="$PROJECT" --quiet
+echo "VM stopped."

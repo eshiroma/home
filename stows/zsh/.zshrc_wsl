@@ -1,12 +1,30 @@
 echo "wsl detected, applying wsl-specific settings"
 
 export PATH=$PATH:/mnt/c/Users/enshi/AppData/Local/Android/Sdk/platform-tools
+export PATH=$PATH:"/mnt/c/Program Files/usbipd-win"
 
 export PATH="$PATH:$HOME/.maestro/bin"
 
 # Android devices
+# Pixel 9 Pro (wireless)
 export PIXEL_9_PRO="100.100.163.108:36977"
-alias adb-p='adb -s $PIXEL_9_PRO'
+alias adb-p9='adb -s $PIXEL_9_PRO'
+adb connect $PIXEL_9_PRO &>/dev/null &
+# One-time setup (admin PowerShell): usbipd bind --busid 1-5
+alias adb-usb-p9='usbipd.exe attach --wsl --busid 1-5'
+
+# Pixel 7 Pro (dev device)
+export PIXEL_7_PRO=""
+alias adb-p7='adb -s $PIXEL_7_PRO'
+# One-time setup (admin PowerShell): usbipd bind --busid 2-6
+alias adb-usb-p7='usbipd.exe attach --wsl --busid 2-6'
+
+# Shortcuts — point to primary dev device
+alias adb-p='adb-p7'
+alias adb-usb-p='adb-usb-p7'
+
+# Run after starting emulator in Android Studio
+alias adb-emulator='adb connect localhost:5555'
 
 export FZF_TMUX=0
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --no-mouse --bind ctrl-z:ignore'

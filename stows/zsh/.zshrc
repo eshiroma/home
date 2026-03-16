@@ -27,6 +27,7 @@ setopt hist_find_no_dups
 setopt INTERACTIVECOMMENTS
 
 export PATH=$PATH:~/.scripts
+[ -f "${HOME}/.bash_aliases" ] && source "${HOME}/.bash_aliases"
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/go/bin
 # fzf

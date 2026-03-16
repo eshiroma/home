@@ -14,8 +14,10 @@ adb connect $PIXEL_9_PRO &>/dev/null &
 alias adb-usb-p9='usbipd.exe attach --wsl --busid 1-5'
 
 # Pixel 7 Pro (dev device)
-export PIXEL_7_PRO=""
+# Wireless via Tailscale (stable IP). Requires: adb tcpip 5555 over USB after each reboot.
+export PIXEL_7_PRO="100.108.143.98:5555"
 alias adb-p7='adb -s $PIXEL_7_PRO'
+adb connect $PIXEL_7_PRO &>/dev/null &
 # One-time setup (admin PowerShell): usbipd bind --busid 2-6
 alias adb-usb-p7='usbipd.exe attach --wsl --busid 2-6'
 

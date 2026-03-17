@@ -41,6 +41,8 @@ export FZF_CTRL_T_COMMAND="command ag '' -l"
 # wsl-only setup
 [[ -n "$WSL_DISTRO_NAME" ]] && source "${HOME}/.zshrc_wsl"
 
+# SSH session setup (phone-friendly aliases, etc.)
+[[ -n "$SSH_CONNECTION" ]] && [ -f "${HOME}/.zshrc_ssh" ] && source "${HOME}/.zshrc_ssh"
 
 # Corp-only setup
 [ -f "${HOME}/.zshrc_corp" ] && source "${HOME}/.zshrc_corp"

@@ -1,0 +1,20 @@
+#!/bin/bash
+# tg-notify — send a notification message via Telegram
+# Usage: tg-notify "message text"
+
+if [[ -z "$1" ]]; then
+    echo "Usage: tg-notify \"message text\"" >&2
+    exit 1
+fi
+
+[[ -f ~/.localrc ]] && source ~/.localrc
+source ~/.claude/hooks/lib/telegram-bridge.sh
+
+IDENTITY=$(tg_identity)
+MESSAGE="$1"
+
+MSG_TEXT="<b>${IDENTITY} Update</b>
+
+${MESSAGE}"
+
+tg_send "$MSG_TEXT" >/dev/null

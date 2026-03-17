@@ -1,0 +1,36 @@
+#!/bin/bash
+# tg-ask — send a question via Telegram and wait for reply
+# Usage: tg-ask "question text"
+
+if [[ -z "$1" ]]; then
+    echo "Usage: tg-ask \"question text\"" >&2
+    exit 1
+fi
+
+[[ -f ~/.localrc ]] && source ~/.localrc
+source ~/.claude/hooks/lib/telegram-bridge.sh
+
+tg_ensure_poller
+
+IDENTITY=$(tg_identity)
+QUESTION="$1"
+
+MSG_TEXT="<b>${IDENTITY} Question</b>
+
+${QUESTION}
+
+<i>Reply to this message with your answer.</i>"
+
+MSG_ID=$(tg_send "$MSG_TEXT")
+if [[ -z "$MSG_ID" ]]; then
+    echo "tg-ask: failed to send message" >&2
+    exit 1
+fi
+
+REPLY=$(tg_wait_reply "$MSG_ID" 3600)
+if [[ $? -ne 0 ]]; then
+    echo "tg-ask: timed out waiting for reply" >&2
+    exit 1
+fi
+
+echo "$REPLY"

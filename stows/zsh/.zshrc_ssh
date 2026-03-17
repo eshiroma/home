@@ -1,0 +1,43 @@
+# SSH session detected — add convenience aliases.
+# When terminal is narrow (likely a phone), announce it.
+
+# --- Always available in SSH sessions ---
+
+# tmux session management
+alias ta='tmux attach'
+alias tad='tmux attach -d'  # attach and detach other clients
+alias tl='tmux list-sessions'
+alias tks='tmux kill-session -t'
+
+# tmux window navigation (no modifier keys needed)
+alias tnw='tmux next-window'
+alias tpw='tmux previous-window'
+tw() { tmux select-window -t "$1"; }  # tw 2 = go to window 2
+
+# tmux pane navigation
+alias tpl='tmux select-pane -L'
+alias tpr='tmux select-pane -R'
+alias tpu='tmux select-pane -U'
+alias tpd='tmux select-pane -D'
+
+# tmux pane splitting (keeps current dir)
+alias tsh='tmux split-window -h -c "#{pane_current_path}"'
+alias tsv='tmux split-window -v -c "#{pane_current_path}"'
+
+# tmux misc
+alias tren='tmux rename-window'
+alias tzm='tmux resize-pane -Z'  # toggle zoom
+
+# Send keys to tmux (for when you need prefix combos)
+# e.g. tsk C-c to send Ctrl-C to the active pane
+alias tsk='tmux send-keys'
+
+# --- Summary ---
+echo "ssh aliases loaded:"
+echo "  sessions: ta tad tl tks"
+echo "  windows:  tnw tpw tw<N> tren"
+echo "  panes:    tpl tpr tpu tpd tsh tsv tzm"
+echo "  misc:     tsk"
+if [[ ${COLUMNS:-80} -lt 100 ]]; then
+  echo "  (narrow terminal — ${COLUMNS} cols, likely phone)"
+fi

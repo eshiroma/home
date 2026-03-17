@@ -28,7 +28,7 @@ tg_get_session_thread() {
         return 0
     fi
 
-    local topic_name="${MACHINE_TAG}/${PWD##*/} $(date '+%m-%d %H:%M')"
+    local topic_name="${MACHINE_TAG}/${PWD##*/}"
     local thread_id
     thread_id=$(tg_create_topic "$topic_name")
 
@@ -165,15 +165,32 @@ tg_answer_cb() {
     tg_api "answerCallbackQuery" "$body" > /dev/null
 }
 
+# _tg_poller_running — check if poller daemon is alive
+_tg_poller_running() {
+    local pid_file="/tmp/telegram-poller.pid"
+    if [[ -f "$pid_file" ]]; then
+        local pid
+        pid=$(cat "$pid_file" 2>/dev/null)
+        [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null && return 0
+    fi
+    return 1
+}
+
 # tg_wait_callback MSG_ID TIMEOUT_SEC — block until callback arrives or timeout
 # Returns callback value
-# Checks both the poller's file output and does direct inline polling as fallback
+# When poller is running, only watches /tmp files (no competing getUpdates calls).
+# Falls back to direct inline polling only when poller is NOT running.
 tg_wait_callback() {
     local msg_id="$1"
     local timeout="${2:-60}"
     local cb_file="/tmp/telegram-cb-${msg_id}"
     local elapsed=0
     local poll_interval=3
+    local use_poller=false
+
+    if _tg_poller_running; then
+        use_poller=true
+    fi
 
     while [[ $elapsed -lt $timeout ]]; do
         # Check if poller already delivered the callback
@@ -185,8 +202,8 @@ tg_wait_callback() {
             return 0
         fi
 
-        # Direct inline poll as fallback (short poll, callback_query only)
-        if (( elapsed % poll_interval == 0 )); then
+        # Only do direct polling if poller is NOT running (avoids competing getUpdates)
+        if [[ "$use_poller" == "false" ]] && (( elapsed % poll_interval == 0 )); then
             local response
             response=$(tg_api "getUpdates" '{"timeout":2,"allowed_updates":["callback_query"]}')
             local ok

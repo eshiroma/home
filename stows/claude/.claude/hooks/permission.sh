@@ -119,16 +119,19 @@ if [[ "$RESPONSE" == "explain" ]]; then
     fi
 fi
 
-# Output decision
+# Confirm the choice visually by editing the message to remove keyboard and show result
+CONFIRM_MSG_ID="${NEW_MSG_ID:-$MSG_ID}"
 case "$RESPONSE" in
     allow)
+        tg_edit "$CONFIRM_MSG_ID" "${FULL_MSG}\n\n<b>Allowed</b>" >&2 || true
         echo '{"hookSpecificOutput":{"hookEventName":"PermissionRequest","decision":{"behavior":"allow"}}}'
         ;;
     later)
+        tg_edit "$CONFIRM_MSG_ID" "${FULL_MSG}\n\n<b>Deferred</b>" >&2 || true
         echo '{"hookSpecificOutput":{"hookEventName":"PermissionRequest","decision":{"behavior":"deny","message":"User will respond later - try an alternative approach or move to a different task"}}}'
         ;;
     *)
-        # deny or anything else
+        tg_edit "$CONFIRM_MSG_ID" "${FULL_MSG}\n\n<b>Denied</b>" >&2 || true
         echo '{"hookSpecificOutput":{"hookEventName":"PermissionRequest","decision":{"behavior":"deny","message":"Permission denied by user"}}}'
         ;;
 esac

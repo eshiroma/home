@@ -29,6 +29,12 @@ init-wsl-tools:
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}" && zsh
 
+stow-claude:
+	cd stows-optional/ && stow --target "${HOME}" claude
+
 unstow:
 	cd stows/ && stow --delete --target "${HOME}" *
+
+unstow-claude:
+	cd stows-optional/ && stow --delete --target "${HOME}" claude
 

@@ -1,5 +1,3 @@
-echo "wsl detected, applying wsl-specific settings"
-
 export PATH=$PATH:/mnt/c/Users/enshi/AppData/Local/Android/Sdk/platform-tools
 export PATH=$PATH:"/mnt/c/Program Files/usbipd-win"
 
@@ -9,7 +7,6 @@ export PATH="$PATH:$HOME/.maestro/bin"
 # Pixel 9 Pro (wireless via Tailscale). Requires: adb tcpip 36977 over USB after each reboot.
 export PIXEL_9_PRO="100.100.163.108:36977"
 alias adb-p9='adb.exe -s $PIXEL_9_PRO'
-adb.exe connect $PIXEL_9_PRO &>/dev/null &
 # One-time setup (admin PowerShell): usbipd bind --busid 1-5
 alias adb-usb-p9='usbipd.exe attach --wsl --busid 1-5'
 
@@ -17,7 +14,6 @@ alias adb-usb-p9='usbipd.exe attach --wsl --busid 1-5'
 # Wireless via Tailscale (stable IP). Requires: adb tcpip 5555 over USB after each reboot.
 export PIXEL_7_PRO="100.108.143.98:5555"
 alias adb-p7='adb -s $PIXEL_7_PRO'
-adb connect $PIXEL_7_PRO &>/dev/null &
 # One-time setup (admin PowerShell): usbipd bind --busid 2-6
 alias adb-usb-p7='usbipd.exe attach --wsl --busid 2-6'
 

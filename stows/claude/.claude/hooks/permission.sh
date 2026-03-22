@@ -1,5 +1,7 @@
 #!/bin/bash
-# PermissionRequest hook — sends Telegram message and waits for user response
+# PreToolUse / PermissionRequest hook — per-session opt-in permission gating via Telegram
+# If /tmp/claude-gate-${WINDOW_ID} exists: interactive Allow/Deny keyboard
+# If absent: non-blocking notification, then allow through
 # Falls back to deny on network failure (|| true guards prevent blocking)
 
 [[ -f ~/.localrc ]] && source ~/.localrc
@@ -23,6 +25,25 @@ if [[ -n "$CWD" ]]; then
 fi
 
 IDENTITY=$(tg_identity)
+
+# --- Per-session gate check ---
+# Resolve tmux window ID and check for opt-in gate file
+GATE_ACTIVE=false
+if [[ -n "$TMUX_PANE" ]]; then
+    WINDOW_ID=$(tmux display-message -p -t "$TMUX_PANE" '#{window_id}' 2>/dev/null)
+    if [[ -n "$WINDOW_ID" && -f "/tmp/claude-gate-${WINDOW_ID}" ]]; then
+        GATE_ACTIVE=true
+    fi
+fi
+
+# If gate is not active: send non-blocking notification and allow through
+if [[ "$GATE_ACTIVE" != "true" ]]; then
+    (tg_send "<b>${IDENTITY} Tool:</b> <code>${TOOL_NAME}</code> (auto-allowed, gate inactive)" || true) >/dev/null 2>&1 &
+    echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","decision":{"behavior":"allow"}}}'
+    exit 0
+fi
+
+# --- Gate is active: interactive Telegram permission flow ---
 
 # Format message based on tool type
 case "$TOOL_NAME" in

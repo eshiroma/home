@@ -1,4 +1,7 @@
 alias cdh='cd ~/local/github.com/eshiroma/home'
 
-# History cleanup utilities (hd, hist-clean).
-[ -f "${HOME}/.hist-utils" ] && source "${HOME}/.hist-utils"
+# Source shell functions (sourced, not executed, so they can modify current shell state).
+for f in "${HOME}/.scripts/functions/"*; do
+  [ -f "$f" ] && source "$f"
+done
+unset f

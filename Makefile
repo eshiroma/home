@@ -4,6 +4,7 @@ init:
 	sudo apt update \
 	&& sudo apt install --yes \
 		curl \
+		fd-find \
 		git \
 		fzf \
 		jq \

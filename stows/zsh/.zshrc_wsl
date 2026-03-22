@@ -6,10 +6,10 @@ export PATH=$PATH:"/mnt/c/Program Files/usbipd-win"
 export PATH="$PATH:$HOME/.maestro/bin"
 
 # Android devices
-# Pixel 9 Pro (wireless)
+# Pixel 9 Pro (wireless via Tailscale). Requires: adb tcpip 36977 over USB after each reboot.
 export PIXEL_9_PRO="100.100.163.108:36977"
-alias adb-p9='adb -s $PIXEL_9_PRO'
-adb connect $PIXEL_9_PRO &>/dev/null &
+alias adb-p9='adb.exe -s $PIXEL_9_PRO'
+adb.exe connect $PIXEL_9_PRO &>/dev/null &
 # One-time setup (admin PowerShell): usbipd bind --busid 1-5
 alias adb-usb-p9='usbipd.exe attach --wsl --busid 1-5'
 

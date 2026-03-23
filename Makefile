@@ -45,6 +45,17 @@ stow-gemini:
 unstow-gemini:
 	cd stows-optional/ && stow --delete --target "${HOME}" gemini
 
+link-agnostic-skills:
+	@for skill in skills/*/; do \
+		name=$$(basename "$$skill"); \
+		for agent_dir in stows-optional/claude/.claude/skills stows-optional/gemini/.gemini/skills; do \
+			if [ -d "$$(dirname "$$agent_dir")" ]; then \
+				mkdir -p "$$agent_dir"; \
+				ln -sfn "../../../../skills/$$name" "$$agent_dir/$$name"; \
+			fi; \
+		done; \
+	done
+
 install-gemini:
 	curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - \
 	&& sudo apt-get install -y nodejs \

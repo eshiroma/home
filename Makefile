@@ -39,3 +39,14 @@ unstow:
 unstow-claude:
 	cd stows-optional/ && stow --delete --target "${HOME}" claude
 
+stow-gemini:
+	cd stows-optional/ && stow --target "${HOME}" gemini
+
+unstow-gemini:
+	cd stows-optional/ && stow --delete --target "${HOME}" gemini
+
+install-gemini:
+	curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - \
+	&& sudo apt-get install -y nodejs \
+	&& sudo npm install -g @google/gemini-cli
+

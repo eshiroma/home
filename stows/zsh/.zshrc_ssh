@@ -1,6 +1,8 @@
 # SSH session detected — add convenience aliases.
 # When terminal is narrow (likely a phone), announce it.
 
+if [[ ${COLUMNS:-100} -lt 80 ]]; then
+
 # --- Always available in SSH sessions ---
 
 # tmux session management
@@ -38,6 +40,6 @@ echo "  sessions: ta tad tl tks"
 echo "  windows:  tnw tpw tw<N> tren"
 echo "  panes:    tpl tpr tpu tpd tsh tsv tzm"
 echo "  misc:     tsk"
-if [[ ${COLUMNS:-80} -lt 100 ]]; then
-  echo "  (narrow terminal — ${COLUMNS} cols, likely phone)"
+echo "  (narrow terminal — ${COLUMNS} cols, likely phone)"
+
 fi

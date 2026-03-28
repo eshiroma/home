@@ -12,6 +12,7 @@ init:
 		make \
 		nodejs \
 		silversearcher-ag \
+		sqlite3 \
 		stow \
 		tar \
 		tmux \

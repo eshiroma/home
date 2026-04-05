@@ -6,6 +6,7 @@ init:
 		curl \
 		fd-find \
 		git \
+		htop \
 		fzf \
 		jq \
 		keychain \

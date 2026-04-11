@@ -23,32 +23,16 @@ argument-hint: [optional args]
 ---
 ```
 
-## Step 2: Link the skill into agent directories
+## Step 2: Verify it's live
+
+Agent skill directories (`~/.claude/skills/`, `~/.gemini/skills/`, `~/.agents/skills/`) are directory-level symlinks into the `skills/` folder, so the new skill is automatically available — no `make` step needed.
 
 ```bash
-cd ~/local/github.com/eshiroma/home && make link-agnostic-skills
+ls ~/.claude/skills/<skill-name>/
 ```
-
-This creates symlinks in:
-- `stows-optional/claude/.claude/skills/<skill-name>` → `../../../../skills/<skill-name>`
-- `stows-optional/gemini/.gemini/skills/<skill-name>` → `../../../../skills/<skill-name>`
-
-## Step 3: Restow so symlinks appear in home directory
-
-```bash
-cd ~/local/github.com/eshiroma/home && make stow-claude stow-gemini
-```
-
-Verify:
-```bash
-ls -la ~/.claude/skills/
-ls -la ~/.gemini/skills/
-```
-
-Both should show the new skill symlinked.
 
 ## Notes
 
-- Agent-specific skills (not shared) go in `stows-optional/claude/.claude/skills/` or `stows-optional/gemini/.gemini/skills/` directly — skip `link-agnostic-skills`
+- Agent-specific skills (not shared) go in `stows-optional/claude/.claude/skills/` or `stows-optional/gemini/.gemini/skills/` directly as a subdirectory (not a symlink)
 - Do NOT place skills in `~/.claude/skills/` directly; they won't be version-controlled
-- Commit all three artifacts: `skills/<name>/SKILL.md`, and the two symlinks in `stows-optional/`
+- Commit only: `skills/<name>/SKILL.md`

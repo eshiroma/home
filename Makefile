@@ -32,7 +32,7 @@ init-wsl-tools:
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}" && zsh
 
-stow-claude:
+stow-claude: stow-agents
 	cd stows-optional/ && stow --target "${HOME}" claude
 
 unstow:
@@ -41,7 +41,7 @@ unstow:
 unstow-claude:
 	cd stows-optional/ && stow --delete --target "${HOME}" claude
 
-stow-gemini:
+stow-gemini: stow-agents
 	cd stows-optional/ && stow --target "${HOME}" gemini
 
 unstow-gemini:

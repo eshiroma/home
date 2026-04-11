@@ -3,8 +3,6 @@
 
 [[rule]]
 toolName = "run_shell_command"
-decision = "allow"
-priority = 100
 commandRegex = """\
   ^(\
   cat\
@@ -13,10 +11,15 @@ commandRegex = """\
   |head\
   |ls\
   |pwd\
+  |readlink\
   |tail\
+  |which\
+  |whoami\
   )\
   [^;|&<>]*$\
 """
+decision = "allow"
+priority = 100
 
 # Partially allowed commands
 # ==========================
@@ -24,8 +27,6 @@ commandRegex = """\
 # Git
 [[rule]]
 toolName = "run_shell_command"
-decision = "allow"
-priority = 100
 commandRegex = """\
   ^git (\
   branch\
@@ -34,15 +35,16 @@ commandRegex = """\
   |remote\
   |show\
   |status\
+  |worktree list\
   )\
   [^;|&<>]*$\
 """
+decision = "allow"
+priority = 100
 
 # Tmux
 [[rule]]
 toolName = "run_shell_command"
-decision = "allow"
-priority = 100
 commandRegex = """\
   ^tmux (\
   list-sessions\
@@ -51,12 +53,12 @@ commandRegex = """\
   )\
   [^;|&<>]*$\
 """
+decision = "allow"
+priority = 100
 
 # NPM / Node
 [[rule]]
 toolName = "run_shell_command"
-decision = "allow"
-priority = 100
 commandRegex = """\
   ^npm (\
   --version\
@@ -65,3 +67,29 @@ commandRegex = """\
   )\
   [^;|&<>]*$\
 """
+decision = "allow"
+priority = 100
+
+# Allow free access to pixel 7
+[[rule]]
+toolName = "run_shell_command"
+#commandPrefix = "adb -s 28271FDH3005RK"
+commandRegex = """\
+  ^adb (devices|-s 28271FDH3005RK)[^;|&<>]*$\
+"""
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = """\
+  ^(flutter|/snap/bin/flutter) (\
+  --version\
+  |build\
+  |devices\
+  |test\
+  )\
+  [^;|&<>]*$\
+"""
+decision = "allow"
+priority = 100

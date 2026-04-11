@@ -71,8 +71,9 @@ android-gradle connectedAndroidTest
 ```
 
 ### utakata (Flutter)
-Run from the project root:
+Run from the worktree root:
 ```bash
+cd /mnt/c/Users/enshi/local/github.com/eshiroma/utakata/main
 /snap/bin/flutter build apk --debug
 ```
 APK output: `build/app/outputs/flutter-apk/app-debug.apk`
@@ -82,6 +83,16 @@ APK output: `build/app/outputs/flutter-apk/app-debug.apk`
 /snap/bin/flutter build apk --debug --target-platform android-arm64
 ```
 Without this flag, the app installs but crashes immediately with `MissingLibraryException: Could not find 'libflutter.so'`.
+
+**Install utakata on emulator:**
+```bash
+adb -s emulator-5554 install -r build/app/outputs/flutter-apk/app-debug.apk
+```
+
+**Install utakata on Pixel 9 Pro (wireless):**
+```bash
+adb.exe -s $PIXEL_9_PRO install -r $(wslpath -w build/app/outputs/flutter-apk/app-debug.apk)
+```
 
 ## Step 4: Install the APK
 

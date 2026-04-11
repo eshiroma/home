@@ -1,10 +1,10 @@
 ---
 name: logcat-crash
-description: Filter logcat to crash-relevant output for auto-anki; use after every install to verify no crash on launch
-argument-hint: [device]
+description: Filter logcat to crash-relevant output for auto-anki or utakata; use after every install to verify no crash on launch
+argument-hint: [device] [app]
 ---
 
-Run after installing auto-anki to confirm no crash on launch. Filters to relevant tags only.
+Run after installing an app to confirm no crash on launch. Filters to relevant tags only.
 
 ## Step 1: Clear logcat buffer
 
@@ -49,20 +49,36 @@ adb -s <device> logcat -d | grep -i "libflutter\|MissingLibrary"
 ```
 Fix: rebuild with `--target-platform android-arm64`.
 
-**Room migration failure**:
+**auto-anki — Room migration failure**:
 ```bash
 adb -s <device> logcat -d | grep -i "migration\|IllegalStateException\|room"
 ```
 
-**Gemini API error**:
+**auto-anki — Gemini API error**:
 ```bash
 adb -s <device> logcat -d | grep -i "gemini\|grpc\|RESOURCE_EXHAUSTED\|INVALID_ARGUMENT"
 ```
 
+**utakata — Drift/SQLite error**:
+```bash
+adb -s <device> logcat -d | grep -i "drift\|SqliteException\|DriftWrapped"
+```
+
+**utakata — media/WebView error**:
+```bash
+adb -s <device> logcat -d | grep -i "MediaKit\|chromium\|youtube\|webview"
+```
+
 ## Step 4: Tail live (optional, for interactive debugging)
 
+### auto-anki
 ```bash
 adb -s <device> logcat AndroidRuntime:E com.example.autoanki:* '*:S'
+```
+
+### utakata
+```bash
+adb -s <device> logcat AndroidRuntime:E flutter:* chromium:* '*:S'
 ```
 
 Ctrl-C to stop.

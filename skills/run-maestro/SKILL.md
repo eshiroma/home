@@ -1,10 +1,10 @@
 ---
 name: run-maestro
-description: Run Maestro UI test flows for auto-anki against the emulator and capture screenshots
-argument-hint: [flow-file]
+description: Run Maestro UI test flows for auto-anki or utakata against the emulator and capture screenshots
+argument-hint: [project] [flow-file]
 ---
 
-Maestro flows live in `maestro/` in the auto-anki repo. The emulator (`emulator-5554`) is the standard target.
+Maestro flows live in `maestro/` in each repo. The emulator (`emulator-5554`) is the standard target.
 
 ## Prerequisites
 
@@ -16,18 +16,58 @@ export PATH="$PATH:$HOME/.maestro/bin"
 
 App must already be installed. If not, run `/android-build-install` first.
 
-## Run a specific flow
+## auto-anki
 
+Run a specific flow:
 ```bash
 cd /mnt/c/Users/enshi/local/github.com/trironkk/auto-anki/master
 ~/.maestro/bin/maestro test maestro/smoke_test.yaml
 ```
 
-## Run all flows
-
+Run all flows:
 ```bash
 ~/.maestro/bin/maestro test maestro/
 ```
+
+Upload screenshots to GCS for remote review:
+```bash
+gsutil cp maestro/screenshots/*.png gs://auto-anki-maestro-screenshots/
+```
+
+## utakata
+
+Run a specific flow:
+```bash
+cd /mnt/c/Users/enshi/local/github.com/eshiroma/utakata/main
+~/.maestro/bin/maestro test maestro/song_list_basics.yaml
+```
+
+Run all flows:
+```bash
+~/.maestro/bin/maestro test maestro/
+```
+
+Key flows and what they cover:
+
+| Flow | Covers |
+|------|--------|
+| `song_list_basics.yaml` | Song list renders, basic navigation |
+| `paste_lyrics_flow.yaml` | Paste + parse lyrics end-to-end |
+| `paste_and_edit_lyrics.yaml` | Edit lyrics after pasting |
+| `play_video.yaml` | YouTube video playback |
+| `transport_controls.yaml` | Play/pause/seek controls |
+| `edit_line_dialog.yaml` | Line editing dialog |
+| `edit_song_title.yaml` | Song title editing |
+| `shift_timestamps.yaml` | Timestamp adjustment |
+| `font_size.yaml` | Font size setting |
+| `overflow_menu.yaml` | Overflow menu actions |
+| `delete_song.yaml` | Song deletion |
+| `song_persistence.yaml` | Songs persist after restart |
+| `export_word_test.yaml` | Word export feature |
+| `scan_screenshots_song_list.yaml` | Screenshot scan (song list) |
+| `scan_screenshots_edit_mode.yaml` | Screenshot scan (edit mode) |
+| `ai_align_ui.yaml` | AI alignment UI |
+| `dismiss_16kb_dialog.yaml` | 16KB page size dialog |
 
 ## Screenshots
 
@@ -37,11 +77,6 @@ To promote a screenshot to golden reference:
 ```bash
 cp maestro/screenshots/<name>.png maestro/golden/<name>.png
 git add maestro/golden/<name>.png
-```
-
-To upload screenshots to GCS for remote review:
-```bash
-gsutil cp maestro/screenshots/*.png gs://auto-anki-maestro-screenshots/
 ```
 
 ## Troubleshooting

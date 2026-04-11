@@ -47,16 +47,16 @@ stow-gemini:
 unstow-gemini:
 	cd stows-optional/ && stow --delete --target "${HOME}" gemini
 
-stow-agent:
-	cd stows-optional/ && stow --target "${HOME}" agent
+stow-agents:
+	cd stows-optional/ && stow --target "${HOME}" agents
 
-unstow-agent:
-	cd stows-optional/ && stow --delete --target "${HOME}" agent
+unstow-agents:
+	cd stows-optional/ && stow --delete --target "${HOME}" agents
 
 link-agnostic-skills:
 	@for skill in skills/*/; do \
 		name=$$(basename "$$skill"); \
-		for agent_dir in stows-optional/claude/.claude/skills stows-optional/agent/.agent/skills; do \
+		for agent_dir in stows-optional/claude/.claude/skills stows-optional/agents/.agents/skills; do \
 			if [ -d "$$(dirname "$$agent_dir")" ]; then \
 				mkdir -p "$$agent_dir"; \
 				ln -sfn "../../../../skills/$$name" "$$agent_dir/$$name"; \

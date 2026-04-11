@@ -1,10 +1,13 @@
 # Unilaterally Allowed Utilities
 # ==============================
+# commandRegex should NOT use ^ and $ anchors because the policy
+# engine splits commands into a JSON string for evaluation:
+# https://geminicli.com/docs/reference/policy-engine/#toml-rule-schema`
 
 [[rule]]
 toolName = "run_shell_command"
 commandRegex = """\
-  ^(\
+  (\
   cat\
   |find\
   |grep\
@@ -16,7 +19,7 @@ commandRegex = """\
   |which\
   |whoami\
   )\
-  [^;|&<>]*$\
+  [^;|&<>]*\
 """
 decision = "allow"
 priority = 100
@@ -24,11 +27,11 @@ priority = 100
 # Partially allowed commands
 # ==========================
 
-# Git
+# git
 [[rule]]
 toolName = "run_shell_command"
 commandRegex = """\
-  ^git (\
+  git (\
   branch\
   |diff\
   |log\
@@ -37,35 +40,35 @@ commandRegex = """\
   |status\
   |worktree list\
   )\
-  [^;|&<>]*$\
+  [^;|&<>]*\
 """
 decision = "allow"
 priority = 100
 
-# Tmux
+# tmux
 [[rule]]
 toolName = "run_shell_command"
 commandRegex = """\
-  ^tmux (\
+  tmux (\
   list-sessions\
   |list-windows\
   |ls\
   )\
-  [^;|&<>]*$\
+  [^;|&<>]*\
 """
 decision = "allow"
 priority = 100
 
-# NPM / Node
+# npm / node
 [[rule]]
 toolName = "run_shell_command"
 commandRegex = """\
-  ^npm (\
+  npm (\
   --version\
   |run test\
   |test\
   )\
-  [^;|&<>]*$\
+  [^;|&<>]*\
 """
 decision = "allow"
 priority = 100
@@ -73,9 +76,9 @@ priority = 100
 # Allow free access to pixel 7
 [[rule]]
 toolName = "run_shell_command"
-#commandPrefix = "adb -s 28271FDH3005RK"
 commandRegex = """\
-  ^adb (devices|-s 28271FDH3005RK)[^;|&<>]*$\
+  adb (devices|-s 28271FDH3005RK)\
+  [^;|&<>]*\
 """
 decision = "allow"
 priority = 100
@@ -83,13 +86,13 @@ priority = 100
 [[rule]]
 toolName = "run_shell_command"
 commandRegex = """\
-  ^(flutter|/snap/bin/flutter) (\
+  (flutter|/snap/bin/flutter) (\
   --version\
   |build\
   |devices\
   |test\
   )\
-  [^;|&<>]*$\
+  [^;|&<>]*\
 """
 decision = "allow"
 priority = 100

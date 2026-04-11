@@ -53,17 +53,6 @@ stow-agents:
 unstow-agents:
 	cd stows-optional/ && stow --delete --target "${HOME}" agents
 
-link-agnostic-skills:
-	@for skill in skills/*/; do \
-		name=$$(basename "$$skill"); \
-		for agent_dir in stows-optional/claude/.claude/skills stows-optional/agents/.agents/skills; do \
-			if [ -d "$$(dirname "$$agent_dir")" ]; then \
-				mkdir -p "$$agent_dir"; \
-				ln -sfn "../../../../skills/$$name" "$$agent_dir/$$name"; \
-			fi; \
-		done; \
-	done
-
 # Gemini CLI cannot update itself:
 #   ✕ Automatic update failed. Please try updating manually
 # To "update manually":

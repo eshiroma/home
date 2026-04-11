@@ -64,6 +64,10 @@ link-agnostic-skills:
 		done; \
 	done
 
+# Gemini CLI cannot update itself:
+#   ✕ Automatic update failed. Please try updating manually
+# To "update manually":
+#   sudo npm update -g @google/gemini-cli
 install-gemini:
 	curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - \
 	&& sudo apt-get install -y nodejs \

@@ -1,0 +1,67 @@
+# Unilaterally Allowed Utilities
+# ==============================
+
+[[rule]]
+toolName = "run_shell_command"
+decision = "allow"
+priority = 100
+commandRegex = """\
+  ^(\
+  cat\
+  |find\
+  |grep\
+  |head\
+  |ls\
+  |pwd\
+  |tail\
+  )\
+  [^;|&<>]*$\
+"""
+
+# Partially allowed commands
+# ==========================
+
+# Git
+[[rule]]
+toolName = "run_shell_command"
+decision = "allow"
+priority = 100
+commandRegex = """\
+  ^git (\
+  branch\
+  |diff\
+  |log\
+  |remote\
+  |show\
+  |status\
+  )\
+  [^;|&<>]*$\
+"""
+
+# Tmux
+[[rule]]
+toolName = "run_shell_command"
+decision = "allow"
+priority = 100
+commandRegex = """\
+  ^tmux (\
+  list-sessions\
+  |list-windows\
+  |ls\
+  )\
+  [^;|&<>]*$\
+"""
+
+# NPM / Node
+[[rule]]
+toolName = "run_shell_command"
+decision = "allow"
+priority = 100
+commandRegex = """\
+  ^npm (\
+  --version\
+  |run test\
+  |test\
+  )\
+  [^;|&<>]*$\
+"""

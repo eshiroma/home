@@ -3,6 +3,9 @@ export PATH=$PATH:"/mnt/c/Program Files/usbipd-win"
 
 export PATH="$PATH:$HOME/.maestro/bin"
 
+# To make Gemini CLI respect config
+export GEMINI_CONFIG_HOME="$HOME/.gemini"
+
 # Android devices
 # Pixel 9 Pro (wireless via Tailscale). Requires: adb tcpip 36977 over USB after each reboot.
 export PIXEL_9_PRO="100.100.163.108:36977"
